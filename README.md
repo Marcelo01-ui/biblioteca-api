@@ -300,3 +300,11 @@ src/main/java/com/example/biblioteca
 src/main/resources
 src/test/java/com/example/biblioteca
 ```
+## Deploy em Produção
+
+**URL pública:** https://biblioteca-api-3j70.onrender.com
+**Swagger:** https://biblioteca-api-3j70.onrender.com/swagger-ui.html
+
+Deploy realizado no Render com banco PostgreSQL.
+A aplicação foi conteinerizada com Docker e implantada no Render.
+Variáveis de ambiente configuradas no painel do Render (DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD).
