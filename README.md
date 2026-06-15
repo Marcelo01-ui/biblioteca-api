@@ -14,7 +14,7 @@ Microservico RESTful desenvolvido em Java com Spring Boot para gerenciar livros 
 - PostgreSQL para producao
 - Springdoc OpenAPI 3.0.3
 - JUnit 5, Mockito e JaCoCo
-- Docker, Render ou Heroku para deploy
+- Docker e Render para deploy
 
 ## Como rodar localmente
 
@@ -27,7 +27,7 @@ Pre-requisitos:
 Passos:
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/Marcelo01-ui/biblioteca-api.git
 cd biblioteca-api
 mvn spring-boot:run
 ```
@@ -62,7 +62,7 @@ Dados do H2:
 Criar livro:
 
 ```bash
-curl -X POST http://localhost:8080/api/livros \
+curl -X POST https://biblioteca-api-3j70.onrender.com/api/livros \
   -H "Content-Type: application/json" \
   -d '{
     "titulo": "Dom Casmurro",
@@ -77,25 +77,25 @@ curl -X POST http://localhost:8080/api/livros \
 Listar livros:
 
 ```bash
-curl http://localhost:8080/api/livros
+curl https://biblioteca-api-3j70.onrender.com/api/livros
 ```
 
 Buscar por ID:
 
 ```bash
-curl http://localhost:8080/api/livros/1
+curl https://biblioteca-api-3j70.onrender.com/api/livros/1
 ```
 
 Filtrar por autor:
 
 ```bash
-curl "http://localhost:8080/api/livros/filtro?autor=Machado"
+curl "https://biblioteca-api-3j70.onrender.com/api/livros/filtro?autor=Machado"
 ```
 
 Atualizar livro:
 
 ```bash
-curl -X PUT http://localhost:8080/api/livros/1 \
+curl -X PUT https://biblioteca-api-3j70.onrender.com/api/livros/1 \
   -H "Content-Type: application/json" \
   -d '{
     "titulo": "Dom Casmurro - Edicao Especial",
@@ -110,7 +110,7 @@ curl -X PUT http://localhost:8080/api/livros/1 \
 Atualizar genero:
 
 ```bash
-curl -X PATCH http://localhost:8080/api/livros/1/genero \
+curl -X PATCH https://biblioteca-api-3j70.onrender.com/api/livros/1/genero \
   -H "Content-Type: application/json" \
   -d '{"genero": "Realismo"}'
 ```
@@ -118,7 +118,7 @@ curl -X PATCH http://localhost:8080/api/livros/1/genero \
 Remover livro:
 
 ```bash
-curl -X DELETE http://localhost:8080/api/livros/1
+curl -X DELETE https://biblioteca-api-3j70.onrender.com/api/livros/1
 ```
 
 ## Validacoes
@@ -200,74 +200,19 @@ SPRING_PROFILES_ACTIVE=prod
 DATABASE_URL=jdbc:postgresql://host:5432/biblioteca
 DATABASE_USERNAME=usuario
 DATABASE_PASSWORD=senha
-DDL_AUTO=update
-```
-
-## Docker local com PostgreSQL
-
-Subir o banco:
-
-```bash
-docker compose up -d
-```
-
-Rodar a aplicacao usando o profile de producao local:
-
-```bash
-SPRING_PROFILES_ACTIVE=prod \
-DATABASE_URL=jdbc:postgresql://localhost:5432/biblioteca \
-DATABASE_USERNAME=biblioteca \
-DATABASE_PASSWORD=biblioteca \
-mvn spring-boot:run
 ```
 
 ## Deploy em Producao
 
-Link publico da API:
+**URL publica:** https://biblioteca-api-3j70.onrender.com
 
-```text
-https://substituir-pelo-link-publico-da-api
-```
+**Swagger:** https://biblioteca-api-3j70.onrender.com/swagger-ui.html
 
-Opcao recomendada: Render + PostgreSQL.
-
-1. Criar um banco PostgreSQL no Render ou no Supabase.
-2. Criar um novo Web Service no Render apontando para o repositorio GitHub.
-3. Selecionar deploy com Docker, usando o `Dockerfile` deste projeto.
-4. Configurar as variaveis de ambiente:
-
-```text
-SPRING_PROFILES_ACTIVE=prod
-DATABASE_URL=jdbc:postgresql://host:5432/biblioteca
-DATABASE_USERNAME=usuario
-DATABASE_PASSWORD=senha
-DDL_AUTO=update
-```
-
-5. Publicar o servico e testar:
-
-```bash
-curl https://seu-servico.onrender.com/api/livros
-```
-
-Opcao alternativa: Heroku.
-
-- O projeto inclui `Procfile`.
-- O arquivo `system.properties` define Java 21.
-- Usar Heroku Postgres e configurar as variaveis de ambiente equivalentes.
+Deploy realizado no Render com banco PostgreSQL. A aplicacao foi conteinerizada com Docker e implantada no Render. Variaveis de ambiente configuradas no painel do Render (DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD).
 
 ## Controle de versao
 
-Fluxo sugerido:
-
-```bash
-git checkout -b feature/cadastro-livros
-git add .
-git commit -m "feat: adiciona cadastro de livros"
-git push origin feature/cadastro-livros
-```
-
-Padrao de mensagens:
+Padrao de mensagens de commit:
 
 - `feat: nova funcionalidade`
 - `fix: correcao de bug`
@@ -279,12 +224,8 @@ Padrao de mensagens:
 
 | Integrante | Responsabilidade |
 | --- | --- |
-| Integrante 1 | Modelagem das entidades JPA e repositories |
-| Integrante 2 | Implementacao da camada service |
-| Integrante 3 | Implementacao dos controllers REST |
-| Integrante 4 | DTOs, validacoes e tratamento de excecoes |
-| Integrante 5 | Testes unitarios com JUnit 5 e Mockito |
-| Integrante 6 | README, Swagger, deploy e apresentacao final |
+| Marcelo | Modelagem das entidades JPA, repositories, service, controllers REST, DTOs, validacoes, tratamento de excecoes e testes unitarios |
+| Joao | Documentacao, README, revisao via Pull Request e apoio na apresentacao final |
 
 ## Estrutura
 
@@ -300,11 +241,3 @@ src/main/java/com/example/biblioteca
 src/main/resources
 src/test/java/com/example/biblioteca
 ```
-## Deploy em Produção
-
-**URL pública:** https://biblioteca-api-3j70.onrender.com
-**Swagger:** https://biblioteca-api-3j70.onrender.com/swagger-ui.html
-
-Deploy realizado no Render com banco PostgreSQL.
-A aplicação foi conteinerizada com Docker e implantada no Render.
-Variáveis de ambiente configuradas no painel do Render (DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD).
